@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lusaka Phones</title>
+
+<style>
+body{margin:0;font-family:Arial;background:#111;color:white;text-align:center;}
+header{padding:50px;}
+
+input{
+width:80%;
+padding:12px;
+border-radius:8px;
+border:none;
+margin-top:10px;
+}
+
+button{
+padding:12px 20px;
+border:none;
+border-radius:8px;
+background:#25D366;
+color:white;
+margin-top:10px;
+cursor:pointer;
+}
+
+.card{
+background:#222;
+margin:10px;
+padding:10px;
+border-radius:10px;
+display:inline-block;
+width:150px;
+}
+
+img{width:100%;border-radius:8px;}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>📱 Lusaka Phone Store</h1>
+<p>Search your phone instantly</p>
+
+<input id="search" placeholder="Search iPhone, Samsung...">
+
+<br>
+
+<button onclick="go()">Search</button>
+</header>
+
+<h3>⭐ Popular Phones</h3>
+
+<div class="card">
+<img src="images/iphonex.jpg">
+<p>iPhone X</p>
+</div>
+
+<div class="card">
+<img src="images/samsunga32.jpg">
+<p>Samsung A32</p>
+</div>
+
+<div class="card">
+<img src="images/googlepixel7.jpg">
+<p>Pixel 7</p>
+</div>
+
+<script>
+function go(){
+let q=document.getElementById("search").value;
+location.href="shop.html?search="+q;
+}
+</script>
+
+</body>
+</html>

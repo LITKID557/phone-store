@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Product</title>
+
+<style>
+body{font-family:Arial;margin:0;padding:15px;}
+img{width:100%;border-radius:10px;max-height:300px;object-fit:cover;}
+button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:8px;
+background:#25D366;
+color:white;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<button onclick="history.back()">⬅ Back</button>
+
+<div id="p"></div>
+
+<script>
+
+let phones = {
+iphonex:["iPhone X","K3500","iphonex.jpg"],
+samsunga32:["Samsung A32","K2300","samsunga32.jpg"],
+googlepixel7:["Google Pixel 7","K4500","googlepixel7.jpg"],
+tecnopop7:["Tecno Pop 7","K900","tecnopop7.jpg"],
+itela05s:["Itel A05s","K800","itela05s.jpg"],
+iphone11pro:["iPhone 11 Pro","K5200","iphone11pro.jpg"],
+iphone7plus:["iPhone 7 Plus","K1800","iphone7plus.jpg"],
+googlepixel2xl:["Google Pixel 2 XL","K1500","googlepixel2xl.jpg"],
+iphone17pro:["iPhone 17 Pro","K15000","iphone17pro.jpg"],
+tecnocamon50:["Tecno Camon 50","K3000","tecnocamon50.jpg"],
+tecnopop20:["Tecno Pop 20","K1200","tecnopop20.jpg"],
+infinixhot60i:["Infinix Hot 60i","K1800","infinixhot60i.jpg"],
+googlepixel8a:["Google Pixel 8a","K6000","googlepixel8a.jpg"]
+};
+
+let id=new URLSearchParams(location.search).get("id");
+let p=phones[id];
+
+document.getElementById("p").innerHTML=`
+<img src="images/${p[2]}">
+<h2>${p[0]}</h2>
+<h3>${p[1]}</h3>
+
+<button onclick="buy()">Buy on WhatsApp</button>
+`;
+
+function buy(){
+window.open("https://wa.me/260974674732?text=Hi I'm interested in "+p[0]);
+}
+
+</script>
+
+</body>
+</html>

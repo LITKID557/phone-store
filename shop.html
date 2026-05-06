@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Phone Store App</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#f4f4f4;
+padding-bottom:60px;
+}
+
+/* TOP BAR */
+header{
+background:#111;
+color:white;
+text-align:center;
+padding:15px;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+gap:10px;
+padding:10px;
+}
+
+.card{
+background:white;
+border-radius:12px;
+padding:8px;
+position:relative;
+}
+
+.card img{
+width:100%;
+height:120px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.price{
+color:green;
+font-weight:bold;
+}
+
+/* BUTTONS */
+button{
+width:100%;
+padding:8px;
+border:none;
+border-radius:8px;
+background:#25D366;
+color:white;
+margin-top:5px;
+cursor:pointer;
+}
+
+.icon{
+position:absolute;
+top:8px;
+right:8px;
+cursor:pointer;
+font-size:18px;
+}
+
+/* BOTTOM NAV */
+.nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#111;
+display:flex;
+justify-content:space-around;
+padding:10px;
+color:white;
+}
+
+.nav div{
+cursor:pointer;
+font-size:12px;
+text-align:center;
+}
+
+/* SECTIONS */
+.section{display:none;}
+.active{display:block;}
+</style>
+</head>
+
+<body>
+
+<header>
+📱 Phone Store App
+</header>
+
+<!-- SHOP -->
+<div id="shop" class="section active">
+<div class="grid" id="list"></div>
+</div>
+
+<!-- CART -->
+<div id="cart" class="section">
+<h3 style="text-align:center;">🛒 Cart</h3>
+<div id="cartList"></div>
+</div>
+
+<!-- WISHLIST -->
+<div id="wish" class="section">
+<h3 style="text-align:center;">❤️ Wishlist</h3>
+<div id="wishList"></div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+<div onclick="show('shop')">🏠<br>Shop</div>
+<div onclick="show('cart')">🛒<br>Cart</div>
+<div onclick="show('wish')">❤️<br>Wishlist</div>
+</div>
+
+<script>
+
+/* FULL PHONE LIST (ALL RESTORED) */
+let phones = [
+"iphonex","samsunga32","googlepixel7","tecnopop7",
+"itela05s","iphone11pro","iphone7plus","googlepixel2xl",
+"iphone17pro","tecnocamon50","tecnopop20","infinixhot60i","googlepixel8a"
+];
+
+let names = {
+iphonex:"iPhone X",
+samsunga32:"Samsung A32",
+googlepixel7:"Google Pixel 7",
+tecnopop7:"Tecno Pop 7",
+itela05s:"Itel A05s",
+iphone11pro:"iPhone 11 Pro",
+iphone7plus:"iPhone 7 Plus",
+googlepixel2xl:"Google Pixel 2 XL",
+iphone17pro:"iPhone 17 Pro",
+tecnocamon50:"Tecno Camon 50",
+tecnopop20:"Tecno Pop 20",
+infinixhot60i:"Infinix Hot 60i",
+googlepixel8a:"Google Pixel 8a"
+};
+
+let prices = {
+iphonex:"K3500",
+samsunga32:"K2300",
+googlepixel7:"K4500",
+tecnopop7:"K900",
+itela05s:"K800",
+iphone11pro:"K5200",
+iphone7plus:"K1800",
+googlepixel2xl:"K1500",
+iphone17pro:"K15000",
+tecnocamon50:"K3000",
+tecnopop20:"K1200",
+infinixhot60i:"K1800",
+googlepixel8a:"K6000"
+};
+
+/* STORAGE */
+let cart = JSON.parse(localStorage.getItem("cart")||"[]");
+let wish = JSON.parse(localStorage.getItem("wish")||"[]");
+
+function load(){
+
+let list=document.getElementById("list");
+list.innerHTML="";
+
+phones.forEach(p=>{
+
+list.innerHTML+=`
+<div class="card">
+
+<div class="icon" onclick="toggleWish('${p}')">❤️</div>
+
+<img src="images/${p}.jpg">
+<h4>${names[p]}</h4>
+<p class="price">${prices[p]}</p>
+
+<button onclick="addCart('${p}')">Add to Cart</button>
+</div>
+`;
+
+});
+
+}
+
+/* CART */
+function addCart(p){
+cart.push(p);
+localStorage.setItem("cart",JSON.stringify(cart));
+alert("Added to cart");
+updateCart();
+}
+
+/* WISHLIST */
+function toggleWish(p){
+wish.push(p);
+localStorage.setItem("wish",JSON.stringify(wish));
+alert("Saved to wishlist");
+updateWish();
+}
+
+/* SHOW CART */
+function updateCart(){
+let c=document.getElementById("cartList");
+c.innerHTML="";
+
+cart.forEach(p=>{
+c.innerHTML+=`
+<div style="background:white;margin:10px;padding:10px;border-radius:10px;">
+${names[p]} - ${prices[p]}
+</div>`;
+});
+}
+
+/* SHOW WISH */
+function updateWish(){
+let w=document.getElementById("wishList");
+w.innerHTML="";
+
+wish.forEach(p=>{
+w.innerHTML+=`
+<div style="background:white;margin:10px;padding:10px;border-radius:10px;">
+${names[p]} - ${prices[p]}
+</div>`;
+});
+}
+
+/* NAV */
+function show(id){
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+}
+
+load();
+updateCart();
+updateWish();
+
+</script>
+
+</body>
+</html>
