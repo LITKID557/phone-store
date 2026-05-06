@@ -117,14 +117,19 @@ margin-bottom:5px;
 <body>
 
 <header>
-📱 Phone Store App
+<h2>🛒 Shop Phones</h2>
 </header>
 
-<!-- SHOP -->
-<div id="shop" class="section active">
-<div class="grid" id="list"></div>
+<div style="text-align:center;margin:10px;">
+<button onclick="filter('all')">All</button>
+<button onclick="filter('Apple')">iPhone</button>
+<button onclick="filter('Samsung')">Samsung</button>
+<button onclick="filter('Tecno')">Tecno</button>
+<button onclick="filter('Infinix')">Infinix</button>
+<button onclick="filter('Google')">Google</button>
 </div>
 
+<div class="grid" id="list"></div>
 <!-- CART -->
 <div id="cart" class="section">
 <h3 style="text-align:center;">🛒 Cart</h3>
@@ -146,124 +151,52 @@ margin-bottom:5px;
 
 <script>
 
-/* FULL PHONE LIST (ALL RESTORED) */
 let phones = [
-"iphonex","samsunga32","googlepixel7","tecnopop7",
-"itela05s","iphone11pro","iphone7plus","googlepixel2xl",
-"iphone17pro","tecnocamon50","tecnopop20","infinixhot60i","googlepixel8a"
+{ id:"iphonex", name:"iPhone X", brand:"Apple", price:"K3500" },
+{ id:"samsunga32", name:"Samsung A32", brand:"Samsung", price:"K2300" },
+{ id:"googlepixel7", name:"Google Pixel 7", brand:"Google", price:"K4500" },
+{ id:"tecnopop7", name:"Tecno Pop 7", brand:"Tecno", price:"K900" },
+{ id:"itela05s", name:"Itel A05s", brand:"Itel", price:"K800" },
+{ id:"iphone11pro", name:"iPhone 11 Pro", brand:"Apple", price:"K5200" },
+{ id:"iphone7plus", name:"iPhone 7 Plus", brand:"Apple", price:"K1800" },
+{ id:"googlepixel2xl", name:"Google Pixel 2 XL", brand:"Google", price:"K1500" },
+{ id:"iphone17pro", name:"iPhone 17 Pro", brand:"Apple", price:"K15000" },
+{ id:"tecnocamon50", name:"Tecno Camon 50", brand:"Tecno", price:"K3000" },
+{ id:"tecnopop20", name:"Tecno Pop 20", brand:"Tecno", price:"K1200" },
+{ id:"infinixhot60i", name:"Infinix Hot 60i", brand:"Infinix", price:"K1800" },
+{ id:"googlepixel8a", name:"Google Pixel 8a", brand:"Google", price:"K6000" }
 ];
 
-let names = {
-iphonex:"iPhone X",
-samsunga32:"Samsung A32",
-googlepixel7:"Google Pixel 7",
-tecnopop7:"Tecno Pop 7",
-itela05s:"Itel A05s",
-iphone11pro:"iPhone 11 Pro",
-iphone7plus:"iPhone 7 Plus",
-googlepixel2xl:"Google Pixel 2 XL",
-iphone17pro:"iPhone 17 Pro",
-tecnocamon50:"Tecno Camon 50",
-tecnopop20:"Tecno Pop 20",
-infinixhot60i:"Infinix Hot 60i",
-googlepixel8a:"Google Pixel 8a"
-};
+function load(listData){
+let list = document.getElementById("list");
+list.innerHTML = "";
 
-let prices = {
-iphonex:"K3500",
-samsunga32:"K2300",
-googlepixel7:"K4500",
-tecnopop7:"K900",
-itela05s:"K800",
-iphone11pro:"K5200",
-iphone7plus:"K1800",
-googlepixel2xl:"K1500",
-iphone17pro:"K15000",
-tecnocamon50:"K3000",
-tecnopop20:"K1200",
-infinixhot60i:"K1800",
-googlepixel8a:"K6000"
-};
-
-/* STORAGE */
-let cart = JSON.parse(localStorage.getItem("cart")||"[]");
-let wish = JSON.parse(localStorage.getItem("wish")||"[]");
-
-function load(){
-
-let list=document.getElementById("list");
-list.innerHTML="";
-
-phones.forEach(p=>{
-
-list.innerHTML+=`
-<div class="card">
-
-<div class="icon" onclick="toggleWish('${p}')">❤️</div>
-
-<img src="images/${p}.jpg">
-<h4>${names[p]}</h4>
-<p class="price">${prices[p]}</p>
-
-<button onclick="addCart('${p}')">Add to Cart</button>
+listData.forEach(p=>{
+list.innerHTML += `
+<div class="card" onclick="openP('${p.id}')">
+<img src="images/${p.id}.jpg">
+<h4>${p.name}</h4>
+<p class="price">${p.price}</p>
 </div>
 `;
-
-});
-
-}
-
-/* CART */
-function addCart(p){
-cart.push(p);
-localStorage.setItem("cart",JSON.stringify(cart));
-alert("Added to cart");
-updateCart();
-}
-
-/* WISHLIST */
-function toggleWish(p){
-wish.push(p);
-localStorage.setItem("wish",JSON.stringify(wish));
-alert("Saved to wishlist");
-updateWish();
-}
-
-/* SHOW CART */
-function updateCart(){
-let c=document.getElementById("cartList");
-c.innerHTML="";
-
-cart.forEach(p=>{
-c.innerHTML+=`
-<div style="background:white;margin:10px;padding:10px;border-radius:10px;">
-${names[p]} - ${prices[p]}
-</div>`;
 });
 }
 
-/* SHOW WISH */
-function updateWish(){
-let w=document.getElementById("wishList");
-w.innerHTML="";
-
-wish.forEach(p=>{
-w.innerHTML+=`
-<div style="background:white;margin:10px;padding:10px;border-radius:10px;">
-${names[p]} - ${prices[p]}
-</div>`;
-});
+function filter(type){
+if(type === "all"){
+load(phones);
+}else{
+let filtered = phones.filter(p => p.brand === type);
+load(filtered);
+}
 }
 
-/* NAV */
-function show(id){
-document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-document.getElementById(id).classList.add("active");
+function openP(id){
+location.href = "product.html?id=" + id;
 }
 
-load();
-updateCart();
-updateWish();
+/* LOAD ALL ON START */
+load(phones);
 
 </script>
 <a class="whatsapp-float" href="https://wa.me/260974674732">
