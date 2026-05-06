@@ -1,11 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Product</title>
+<title>Product - ZamTech Mobile Store</title>
 
 <style>
-body{font-family:Arial;margin:0;padding:15px;}
-img{width:100%;border-radius:10px;max-height:300px;object-fit:cover;}
+body{
+margin:0;
+font-family:Arial;
+background:#f4f4f4;
+}
+
+/* TOP BAR */
+header{
+background:#0f0f0f;
+color:white;
+padding:10px;
+text-align:center;
+}
+
+/* CONTAINER */
+.container{
+padding:15px;
+background:white;
+}
+
+/* IMAGE */
+img{
+width:100%;
+max-height:300px;
+object-fit:cover;
+border-radius:10px;
+}
+
+/* TEXT */
+h2{margin:10px 0;}
+.price{
+color:green;
+font-size:20px;
+font-weight:bold;
+}
+
+/* BOX */
+.box{
+background:#f9f9f9;
+padding:10px;
+border-radius:10px;
+margin-top:10px;
+}
+
+/* BUTTON */
 button{
 width:100%;
 padding:12px;
@@ -13,48 +56,146 @@ border:none;
 border-radius:8px;
 background:#25D366;
 color:white;
+font-size:16px;
 cursor:pointer;
+margin-top:10px;
+}
+
+/* BACK */
+.back{
+display:inline-block;
+margin:10px;
+color:white;
+text-decoration:none;
 }
 </style>
 </head>
 
 <body>
 
-<button onclick="history.back()">⬅ Back</button>
+<header>
+<a class="back" href="shop.html">⬅ Back</a>
+📱 Product Details
+</header>
 
-<div id="p"></div>
+<div class="container" id="product"></div>
 
 <script>
 
 let phones = {
-iphonex:["iPhone X","K3500","iphonex.jpg"],
-samsunga32:["Samsung A32","K2300","samsunga32.jpg"],
-googlepixel7:["Google Pixel 7","K4500","googlepixel7.jpg"],
-tecnopop7:["Tecno Pop 7","K900","tecnopop7.jpg"],
-itela05s:["Itel A05s","K800","itela05s.jpg"],
-iphone11pro:["iPhone 11 Pro","K5200","iphone11pro.jpg"],
-iphone7plus:["iPhone 7 Plus","K1800","iphone7plus.jpg"],
-googlepixel2xl:["Google Pixel 2 XL","K1500","googlepixel2xl.jpg"],
-iphone17pro:["iPhone 17 Pro","K15000","iphone17pro.jpg"],
-tecnocamon50:["Tecno Camon 50","K3000","tecnocamon50.jpg"],
-tecnopop20:["Tecno Pop 20","K1200","tecnopop20.jpg"],
-infinixhot60i:["Infinix Hot 60i","K1800","infinixhot60i.jpg"],
-googlepixel8a:["Google Pixel 8a","K6000","googlepixel8a.jpg"]
+iphonex:{
+name:"iPhone X",
+price:"K3500",
+img:"images/iphonex.jpg",
+spec:"64GB | Face ID | Good condition battery"
+},
+
+samsunga32:{
+name:"Samsung A32",
+price:"K2300",
+img:"images/samsunga32.jpg",
+spec:"128GB | 6GB RAM | Super AMOLED"
+},
+
+googlepixel7:{
+name:"Google Pixel 7",
+price:"K4500",
+img:"images/googlepixel7.jpg",
+spec:"Best camera phone | Clean Android | 128GB"
+},
+
+tecnopop7:{
+name:"Tecno Pop 7",
+price:"K900",
+img:"images/tecnopop7.jpg",
+spec:"Budget phone | 32GB | Long battery"
+},
+
+itela05s:{
+name:"Itel A05s",
+price:"K800",
+img:"images/itela05s.jpg",
+spec:"Simple phone | 32GB storage"
+},
+
+iphone11pro:{
+name:"iPhone 11 Pro",
+price:"K5200",
+img:"images/iphone11pro.jpg",
+spec:"OLED display | Triple camera | 64GB"
+},
+
+iphone7plus:{
+name:"iPhone 7 Plus",
+price:"K1800",
+img:"images/iphone7plus.jpg",
+spec:"Dual camera | 32GB | Touch ID"
+},
+
+googlepixel2xl:{
+name:"Google Pixel 2 XL",
+price:"K1500",
+img:"images/googlepixel2xl.jpg",
+spec:"Stock Android | Good camera"
+},
+
+iphone17pro:{
+name:"iPhone 17 Pro",
+price:"K15000",
+img:"images/iphone17pro.jpg",
+spec:"Latest model | Ultra performance"
+},
+
+tecnocamon50:{
+name:"Tecno Camon 50",
+price:"K3000",
+img:"images/tecnocamon50.jpg",
+spec:"Great camera | 128GB storage"
+},
+
+tecnopop20:{
+name:"Tecno Pop 20",
+price:"K1200",
+img:"images/tecnopop20.jpg",
+spec:"Entry level smartphone"
+},
+
+infinixhot60i:{
+name:"Infinix Hot 60i",
+price:"K1800",
+img:"images/infinixhot60i.jpg",
+spec:"Fast performance | Big battery"
+},
+
+googlepixel8a:{
+name:"Google Pixel 8a",
+price:"K6000",
+img:"images/googlepixel8a.jpg",
+spec:"AI camera | Clean Android experience"
+}
 };
 
-let id=new URLSearchParams(location.search).get("id");
-let p=phones[id];
+let id = new URLSearchParams(location.search).get("id");
 
-document.getElementById("p").innerHTML=`
-<img src="images/${p[2]}">
-<h2>${p[0]}</h2>
-<h3>${p[1]}</h3>
+let p = phones[id];
 
-<button onclick="buy()">Buy on WhatsApp</button>
+document.getElementById("product").innerHTML = `
+<img src="${p.img}">
+
+<h2>${p.name}</h2>
+
+<div class="price">${p.price}</div>
+
+<div class="box">
+<strong>Specifications:</strong><br>
+${p.spec}
+</div>
+
+<button onclick="buy()">💬 Buy on WhatsApp</button>
 `;
 
 function buy(){
-window.open("https://wa.me/260974674732?text=Hi I'm interested in "+p[0]);
+window.open("https://wa.me/260974674732?text=Hi I'm interested in "+p.name);
 }
 
 </script>
